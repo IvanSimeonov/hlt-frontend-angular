@@ -12,6 +12,11 @@ export class FoodService {
 
   constructor(private http: HttpClient) {}
 
+  addNewFood(data): Observable<any> {
+    console.log(data);
+    return this.http.post(`${this.basePath}` + "foods/create", data);
+  }
+
   getAllFoods(): Observable<any> {
     return this.http.get(`${this.basePath}` + "foods");
   }
