@@ -1,1 +1,35 @@
-<p>food-details works!</p>
+<div class="container-fluid">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row">
+        <div class="col-sm-9">
+          <h6 class="m-0 font-weight-bold text-primary text-dark">
+            {{ food?.brandName + " " + food?.description }}
+          </h6>
+        </div>
+        <div class="col-sm-3">
+          <div class="float-end">
+            <i class="bi bi-x-circle" (click)="closeRouterOutlet()"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <canvas
+              baseChart
+              [datasets]="doughnutChartData"
+              [labels]="doughnutChartLabels"
+              [options]="doughnutChartOptions"
+              [plugins]="doughnutChartPlugins"
+              [type]="doughnutChartType"
+            >
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

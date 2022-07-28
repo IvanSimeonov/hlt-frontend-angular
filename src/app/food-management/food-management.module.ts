@@ -6,8 +6,8 @@ import { FoodDetailsComponent } from "./food-details/food-details.component";
 import { FoodListComponent } from "./food-list/food-list.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { FoodManagementRoutingModule } from "./food-management-routing.module";
-import { PaginationComponent } from "../pagination/pagination.component";
-import { SearchComponent } from "../search/search.component";
+import { NgChartsModule } from "ng2-charts";
+import { SharedModule } from "../shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -15,9 +15,13 @@ import { SearchComponent } from "../search/search.component";
     FoodEditComponent,
     FoodDetailsComponent,
     FoodListComponent,
-    PaginationComponent,
-    SearchComponent
   ],
-  imports: [CommonModule, ReactiveFormsModule, FoodManagementRoutingModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FoodManagementRoutingModule,
+    NgChartsModule,
+    SharedModule,
+  ],
 })
 export class FoodManagementModule {}

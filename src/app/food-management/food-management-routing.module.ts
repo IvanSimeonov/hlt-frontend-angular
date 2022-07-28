@@ -7,25 +7,29 @@ import { FoodListComponent } from "./food-list/food-list.component";
 
 const routes: Routes = [
   {
-    path: "",
-    redirectTo: "list",
-    pathMatch: "full",
-  },
-  {
     path: "list",
+    data: {label: "Foods", url: "/list"},
     component: FoodListComponent,
-  },
-  {
-    path: "details/:id",
-    component: FoodDetailsComponent,
-  },
-  {
-    path: "edit/:id",
-    component: FoodEditComponent,
-  },
-  {
-    path: "create",
-    component: FoodCreateComponent,
+    children: [
+      {
+        path: "details/:id",
+        data: {label: "Detail"},
+        component: FoodDetailsComponent,
+        outlet: "details",
+      },
+      {
+        path: "edit/:id",
+        data: {label: "Edit"},
+        component: FoodEditComponent,
+        outlet: "details",
+      },
+      {
+        path: "create",
+        data: {label: "Create"},
+        component: FoodCreateComponent,
+        outlet: "details",
+      },
+    ],
   },
 ];
 

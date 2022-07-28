@@ -1,0 +1,20 @@
+<div class="container-fluid">
+    <nav class="breadcrumb-divider" aria-label="breadcrumb" *ngIf="breadcrumbs.length > 0">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a class="breadcrumb-link" [routerLink]="['/home']">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item" *ngFor="let breadcrumb of breadcrumbs; let idx = index"
+                [class.active]="idx !== breadcrumbs.length - 1">
+                <a class="breadcrumb-link" [routerLink]="[breadcrumb.url]" *ngIf="idx !== breadcrumbs.length - 1">
+                    {{breadcrumb.label}}
+                </a>
+                <span class="breadcrumb-span" *ngIf="idx === breadcrumbs.length - 1">
+                    {{breadcrumb.label}}
+                </span>
+            </li>
+        </ol>
+    </nav>
+</div>

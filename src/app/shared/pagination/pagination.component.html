@@ -1,0 +1,25 @@
+<div *ngIf="totalPages > 1">
+  <ul class="pagination">
+    <li class="page-item previous" [ngClass]="{ disabled: currentPage === 0 }">
+      <a (click)="loadPage(currentPage - 1)" class="page-link">&lt;</a>
+    </li>
+
+    <li
+      *ngFor="let page of pages"
+      class="paginate_button page-item"
+      [ngClass]="{ active: currentPage === page, disabled: page === -1 }"
+    >
+      <a *ngIf="page > -1" (click)="loadPage(page)" class="page-link">{{
+        page + 1
+      }}</a>
+      <a *ngIf="page === -1" class="page-link disabled" disabled>...</a>
+    </li>
+
+    <li
+      class="page-item next"
+      [ngClass]="{ disabled: currentPage === totalPages - 1 }"
+    >
+      <a (click)="loadPage(currentPage + 1)" class="page-link">&gt;</a>
+    </li>
+  </ul>
+</div>

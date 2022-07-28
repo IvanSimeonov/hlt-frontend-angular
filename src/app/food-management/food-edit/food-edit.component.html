@@ -1,1 +1,414 @@
-<p>food-edit works!</p>
+<div class="container-fluid">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row">
+        <div class="col-sm-9">
+          <h6 class="m-0 font-weight-bold text-primary text-dark">
+            Edit {{ foodDTO?.brandName + " " + foodDTO?.description }}
+          </h6>
+        </div>
+        <div class="col-sm-3">
+          <div class="float-end">
+            <i class="bi bi-x-circle" (click)="closeRouterOutlet()"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="foodForm" (ngSubmit)="onSubmit()">
+        <div class="form-group row">
+          <label for="brand">Brand:</label>
+          <input
+            class="form-control"
+            id="brand"
+            type="text"
+            placeholder="Brand Name"
+            formControlName="brandName"
+          />
+          <div
+            *ngIf="
+              foodForm.controls['brandName'].invalid &&
+              (foodForm.controls['brandName'].dirty ||
+                foodForm.controls['brandName'].touched)
+            "
+            class="invalid-input"
+            style="color: red"
+          >
+            Please fill the brand name field!
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="productName">Product:</label>
+          <input
+            class="form-control"
+            id="productName"
+            type="text"
+            placeholder="Product Name"
+            formControlName="description"
+          />
+          <div
+            *ngIf="
+              foodForm.controls['description'].invalid &&
+              (foodForm.controls['description'].dirty ||
+                foodForm.controls['description'].touched)
+            "
+            class="invalid-input"
+            style="color: red"
+          >
+            Please fill the product name field!
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="totalCalories">Calories:</label>
+          <input
+            class="form-control"
+            id="totalCalories"
+            type="text"
+            placeholder="Total Calories"
+            formControlName="calories"
+          />
+          <div
+            *ngIf="
+              foodForm.controls['calories'].errors?.['required'] &&
+              (foodForm.controls['calories'].dirty ||
+                foodForm.controls['calories'].touched)
+            "
+            class="invalid-input"
+            style="color: red"
+          >
+            Please fill the product name field!
+          </div>
+          <div
+            *ngIf="
+              foodForm.controls['calories'].invalid &&
+              (foodForm.controls['calories'].dirty ||
+                foodForm.controls['calories'].touched)
+            "
+            class="invalid-input"
+            style="color: red"
+          >
+            Please use numbers only!
+          </div>
+        </div>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="onAdditionalInfo()"
+        >
+          Addional Info
+        </button>
+        <div [ngStyle]="{ display: additionalInfo ? 'block' : 'none' }">
+          <div class="form-group row">
+            <label for="totalProteins">Proteins:</label>
+            <input
+              class="form-control"
+              id="totalProteins"
+              type="text"
+              placeholder="Total Proteins"
+              formControlName="proteins"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalCarbohydrates">Carbohydrates:</label>
+            <input
+              class="form-control"
+              id="totalCarbohydrates"
+              type="text"
+              placeholder="Total Carbohydrates"
+              formControlName="totalCarbohydrates"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalFibers">Fibers:</label>
+            <input
+              class="form-control"
+              id="totalFibers"
+              type="text"
+              placeholder="Total Fibers"
+              formControlName="fibers"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalSugars">Sugars:</label>
+            <input
+              class="form-control"
+              id="totalSugars"
+              type="text"
+              placeholder="Total Sugars"
+              formControlName="sugars"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalFats">Fats:</label>
+            <input
+              class="form-control"
+              id="totalFats"
+              type="text"
+              placeholder="Total Fats"
+              formControlName="totalFats"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalSaturatedFats">Saturated Fats:</label>
+            <input
+              class="form-control"
+              id="totalSaturatedFats"
+              type="text"
+              placeholder="Total Saturated Fats"
+              formControlName="saturatedFats"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalPolyUnsaturatedFats">Polyunsaturated Fats:</label>
+            <input
+              class="form-control"
+              id="totalPolyUnsaturatedFats"
+              type="text"
+              placeholder="Total Polyunsaturated Fats"
+              formControlName="polyUnsaturatedFats"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalMonoUnsaturatedFats">Monounsaturated Fats: </label>
+            <input
+              class="form-control"
+              id="totalMonoUnsaturatedFats"
+              type="text"
+              placeholder="Total Monounsaturated Fats"
+              formControlName="monoUnsaturatedFats"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalTransFats">Trans Fats:</label>
+            <input
+              class="form-control"
+              id="totalTransFats"
+              type="text"
+              placeholder="Total Trans Fats"
+              formControlName="transFats"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalCholesterol">Cholesterol:</label>
+            <input
+              class="form-control"
+              id="totalCholesterol"
+              type="text"
+              placeholder="Total Cholesterol"
+              formControlName="cholesterol"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalSodium">Sodium:</label>
+            <input
+              class="form-control"
+              id="totalSodium"
+              type="text"
+              placeholder="Total Sodium"
+              formControlName="sodium"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalPotassium">Potassium:</label>
+            <input
+              class="form-control"
+              id="totalPotassium"
+              type="text"
+              placeholder="Total Potassium"
+              formControlName="potassium"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalCalcium">Calcium:</label>
+            <input
+              class="form-control"
+              id="totalCalcium"
+              type="text"
+              placeholder="Total Calcium"
+              formControlName="calcium"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalIron">Iron:</label>
+            <input
+              class="form-control"
+              id="totalIron"
+              type="text"
+              placeholder="Total Iron"
+              formControlName="iron"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalVitaminA">Vitamin A:</label>
+            <input
+              class="form-control"
+              id="totalVitaminA"
+              type="text"
+              placeholder="Total Vitamin A"
+              formControlName="vitaminA"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalVitamin B1">Vitamin B1:</label>
+            <input
+              class="form-control"
+              id="totalVitamin"
+              type="text"
+              placeholder="Total Vitamin B1"
+              formControlName="vitaminB1"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalVitaminB2">Vitamin B2:</label>
+            <input
+              class="form-control"
+              id="totalVitaminB2"
+              type="text"
+              placeholder="Total Vitamin B2"
+              formControlName="vitaminB2"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalVitaminB3">Vitamin B3:</label>
+            <input
+              class="form-control"
+              id="totalVitaminB3"
+              type="text"
+              placeholder="Total Vitamin B3"
+              formControlName="vitaminB3"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalVitaminB5">Vitamin B5:</label>
+            <input
+              class="form-control"
+              id="totalVitaminB5"
+              type="text"
+              placeholder="Total Vitamin B5"
+              formControlName="vitaminB5"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalVitaminB6">Vitamin B6:</label>
+            <input
+              class="form-control"
+              id="totalVitaminB6"
+              type="text"
+              placeholder="Total Vitamin B6"
+              formControlName="vitaminB6"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalVitaminB7">Vitamin B7:</label>
+            <input
+              class="form-control"
+              id="totalVitaminB7"
+              type="text"
+              placeholder="Total Vitamin B7"
+              formControlName="vitaminB7"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalVitaminB9">Vitamin B9:</label>
+            <input
+              class="form-control"
+              id="totalVitaminB9"
+              type="text"
+              placeholder="Total Vitamin B9"
+              formControlName="vitaminB9"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalVitaminB12">Vitamin B12:</label>
+            <input
+              class="form-control"
+              id="totalVitaminB12"
+              type="text"
+              placeholder="Total Vitamin B12"
+              formControlName="vitaminB12"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalVitaminC">Vitamin C:</label>
+            <input
+              class="form-control"
+              id="totalVitaminC"
+              type="text"
+              placeholder="Total Vitamin C"
+              formControlName="vitaminC"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalVitaminD">Vitamin D:</label>
+            <input
+              class="form-control"
+              id="totalVitaminD"
+              type="text"
+              placeholder="Total Vitamin D"
+              formControlName="vitaminD"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalVitaminE">Vitamin E:</label>
+            <input
+              class="form-control"
+              id="totalVitaminE"
+              type="text"
+              placeholder="Total Vitamin E"
+              formControlName="vitaminE"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalVitaminK">Vitamin K:</label>
+            <input
+              class="form-control"
+              id="totalVitaminK"
+              type="text"
+              placeholder="Total Vitamin K"
+              formControlName="vitaminK"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalOmega3">Omega-3:</label>
+            <input
+              class="form-control"
+              id="totalOmega3"
+              type="text"
+              placeholder="Total Omega-3"
+              formControlName="omega3"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalOmega6">Omega-6:</label>
+            <input
+              class="form-control"
+              id="totalOmega6"
+              type="text"
+              placeholder="Total Omega-6"
+              formControlName="omega6"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="totalOmega9">Omega-9:</label>
+            <input
+              class="form-control"
+              id="totalOmega9"
+              type="text"
+              placeholder="Total Omega-9"
+              formControlName="omega9"
+            />
+          </div>
+        </div>
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="!foodForm.valid"
+        >
+          Update
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

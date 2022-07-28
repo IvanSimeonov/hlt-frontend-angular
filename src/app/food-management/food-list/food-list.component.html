@@ -1,93 +1,132 @@
 <div class="container-fluid">
   <div class="card shadow mb-4" *ngIf="foodPage">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Food Page Title</h6>
+      <div class="row">
+        <div class="col-sm-9">
+          <h6 class="m-0 font-weight-bold text-primary text-dark">
+            Food Page Title
+          </h6>
+        </div>
+        <div class="col-sm-3">
+          <div class="float-end">
+            <i class="bi bi-plus-circle" (click)="createFood()"></i>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="card-body">
-      <div class="table-responsive">
-        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-          <div class="row" id="controls">
-            <div class="col-sm-12 col-md-2">
-              <div class="dataTables_length" id="dataTable_length">
-                <label>
-                  FOODS LIST SHOW
-                  <select
-                    name="dataTable_length"
-                    [formControl]="foodsPerPageFormControl"
-                    class="custom-select custom-select-sm form-control form-control-sm"
-                  >
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                  </select></label
-                >
-              </div>
-            </div>
-            <div class="col-sm-12 col-md-7">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4 mb-2">
+            <app-search
+              (searchNameChanged)="searchWordChanged($event)"
+            ></app-search>
+          </div>
+          <div class="col-sm-6"></div>
+          <div class="col-sm-1">
+            <label for="size">Rows:</label>
+          </div>
+          <div class="col-sm-1">
+            <select
+              id="size"
+              name="dataTable_length"
+              [formControl]="foodsPerPageFormControl"
+              class="form-select form-select-sm"
+            >
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
+          </div>
+          <div class="table-responsive mt-2">
+            <table class="table text-center">
+              <thead class="table-dark">
+                <tr>
+                  <th>Id</th>
+                  <th>Brand</th>
+                  <th>Product</th>
+                  <th>Calories</th>
+                  <th>Proteins</th>
+                  <th>Carbs</th>
+                  <th>Fats</th>
+                  <th>Options</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let food of foodPage.foods">
+                  <td [innerHTML]="food?.id">{{ food.id }}</td>
+                  <td [innerHTML]="food?.brandName"></td>
+                  <td [innerHTML]="food?.description"></td>
+                  <td [innerHTML]="food?.calories"></td>
+                  <td [innerHTML]="food?.proteins"></td>
+                  <td [innerHTML]="food?.totalCarbohydrates"></td>
+                  <td [innerHTML]="food?.totalFats"></td>
+                  <td>
+                    <button
+                      class="btn btn-dark btn-sm me-1"
+                      (click)="foodDetails(food.id)"
+                    >
+                      <i class="bi bi-info-square"></i>
+                    </button>
+                    <button
+                      class="btn btn-dark btn-sm me-1"
+                      (click)="editFood(food.id)"
+                    >
+                      <i class="bi bi-pen"></i>
+                    </button>
+                    <button
+                      class="btn btn-danger btn-sm"
+                      (click)="openDeleteFormModal(food.id)"
+                    >
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="dataTables_length" id="dataTable_length">
+            <div class="float-end">
               <app-pagination
                 [totalPages]="totalPages"
                 [currentPage]="currentPage"
                 (pageRequested)="loadFoodPage($event)"
               ></app-pagination>
             </div>
-            <div class="col-sm-12 col-md-3">
-              <app-search
-                (searchNameChanged)="searchWordChanged($event)"
-              ></app-search>
-            </div>
           </div>
-
-          <table
-            class="table table-bordered"
-            id="dataTable"
-            width="100%"
-            cellspacing="0"
-          >
-            <thead>
-              <tr>
-                <th (click)="setSortBy()">Id</th>
-                <th>FOOD BRAND NAME</th>
-                <th>FOOD DESCRIPTION</th>
-                <th>FOOD CALORIES</th>
-                <th>FOOD OPTIONS</th>
-              </tr>
-            </thead>
-            <tfoot>
-              <tr>
-                <th>Id</th>
-                <th>FOOD BRAND NAME</th>
-                <th>FOOD DESCRIPTION</th>
-                <th>FOOD CALORIES</th>
-                <th>FOOD OPTIONS</th>
-              </tr>
-            </tfoot>
-            <tbody>
-              <tr *ngFor="let food of foodPage.foods">
-                <td [innerHTML]="food?.id">{{ food.id }}</td>
-                <td [innerHTML]="food?.brandName"></td>
-                <td [innerHTML]="food?.description"></td>
-                <td [innerHTML]="food?.calories"></td>
-                <td>
-                  <button
-                    class="btn btn-secondary btn-sm"
-                    routerLink="/foods/detail/{{ food.id }}"
-                  >
-                    DEATAILS
-                  </button>
-                  <button
-                    class="btn btn-secondary btn-sm ml-1"
-                    routerLink="/foods/edit/{{ food.id }}"
-                  >
-                    EDIT
-                  </button>
-                  <button class="btn btn-danger btn-sm ml-1">DELETE</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet name="details"></router-outlet>
+
+<div id="myModal" class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Food</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Are you sure that you want to delete
+          {{ foodToDelete?.brandName + " " + foodToDelete?.description }}?
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-danger" (click)="deleteFood()">
+          Delete
+        </button>
       </div>
     </div>
   </div>

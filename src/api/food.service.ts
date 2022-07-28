@@ -8,7 +8,6 @@ import { FoodPageDTO } from "./model/foodPageDTO";
 })
 export class FoodService {
   private basePath = "http://localhost:8080/";
-  private defaultHeaders = new HttpHeaders();
 
   constructor(private http: HttpClient) {}
 
@@ -17,8 +16,21 @@ export class FoodService {
     return this.http.post(`${this.basePath}` + "foods/create", data);
   }
 
+  updateFoodById(id, data): Observable<any> {
+    console.log(data);
+    return this.http.put(`${this.basePath}` + "foods/" + id, data);
+  }
+
   getAllFoods(): Observable<any> {
     return this.http.get(`${this.basePath}` + "foods");
+  }
+
+  getFoodById(id: number): Observable<any> {
+    return this.http.get(`${this.basePath}` + "foods/" + id);
+  }
+
+  deleteFoodById(id: number): Observable<any> {
+    return this.http.delete(`${this.basePath}` + "foods/" + id);
   }
 
   searchFoodsPage(
