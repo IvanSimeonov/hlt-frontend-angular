@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, ResolveEnd, ResolveStart, Router } from "@angular/router";
 import { FoodService } from "src/api/food.service";
 import { FoodPageDTO } from "src/api/model/foodPageDTO";
 import { Chart } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { FoodDTO } from "src/api/model/foodDTO";
-import { switchMap } from "rxjs";
+import { filter, map, mapTo, merge, Observable, switchMap } from "rxjs";
 import { SubscriptionHelper } from "src/app/utils/subscription-helper";
 declare var window: any;
 
@@ -30,6 +30,10 @@ export class FoodListComponent extends SubscriptionHelper implements OnInit {
   foodToDeleteId: number;
   foodToDelete: FoodDTO;
 
+  isLoading$!: Observable<boolean>;
+  private _showLoaderEvents$!: Observable<boolean>;
+  private _hideLoaderEvents$!: Observable<boolean>;
+
   constructor(
     private foodService: FoodService,
     private activatedRoute: ActivatedRoute,
@@ -39,6 +43,18 @@ export class FoodListComponent extends SubscriptionHelper implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this._showLoaderEvents$ = this.router.events.pipe(
+      filter((e) => e instanceof ResolveStart),
+      map(() => true)
+    );
+
+    this._hideLoaderEvents$ = this.router.events.pipe(
+      filter((e) => e instanceof ResolveEnd),
+      map(() => false)
+    );
+    this.isLoading$ = merge(this._hideLoaderEvents$, this._showLoaderEvents$);
+
     this.formModal = new window.bootstrap.Modal(
       document.getElementById("myModal")
     );
