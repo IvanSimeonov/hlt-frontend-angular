@@ -18,7 +18,7 @@ export class FoodResolver implements Resolve<FoodDTO> {
     return this.foodService.getFoodById(route.params["id"]).pipe(
       delay(2000),
       catchError(() => {
-        this.router.navigate(["/list"]);
+        this.router.navigate(["/foods"]);
         return EMPTY;
       })
     );

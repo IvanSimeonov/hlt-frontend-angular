@@ -1,6 +1,5 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { AppComponent } from "./app.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 
 const routes: Routes = [
@@ -15,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: "foods",
-    data: {label: "Foods", url: "/foods"},
+    data: { label: "Foods", url: "/foods" },
     loadChildren: () =>
       import("./food-management/food-management-routing.module").then(
         (module) => module.FoodManagementRoutingModule

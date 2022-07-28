@@ -8,6 +8,11 @@ import { FoodListComponent } from "./food-list/food-list.component";
 
 const routes: Routes = [
   {
+    path: "",
+    redirectTo: "list",
+    pathMatch: "full",
+  },
+  {
     path: "list",
     data: { label: "Foods", url: "/list" },
     component: FoodListComponent,

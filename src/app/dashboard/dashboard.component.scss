@@ -1,0 +1,17 @@
+.carousel-height {
+  width: 100%;
+  height: 700px !important;
+}
+
+
+
+@media (max-width: 970px) {
+  .carousel-height {
+    width: 100%;
+    height: 250px !important;
+  }
+
+  .carousel-item > img {
+    height: 240px;
+}
+}
