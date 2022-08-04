@@ -1,0 +1,98 @@
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h6 class="m-0 font-weight-bold text-primary text-dark">
+                        Body Mass Index Calculator
+                    </h6>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div *ngIf="!bmiCalculated" class="row">
+                <div class="col-sm-6">
+                    <h5>Why calculating BMI is so important?</h5>
+                    <p>
+                        A person's body mass index (BMI) is calculated by dividing their weight in kilograms by their
+                        height in meters squared.
+                    </p>
+                    <p>
+                        BMI is an inexpensive and easy screening approach for weight
+                        category—underweight, healthy weight, overweight, and obesity.
+                        Although BMI doesn't measure body fat directly, it has a modest correlation with more direct
+                        measures of body fat, variety of metabolic and illness
+                        consequences.
+                    </p>
+                    <p>
+                        BMI has several drawbacks, including the inaccuracy for pregnant women, those under the height
+                        of
+                        five feet, and those with very muscular builds. Age is also not taken into consideration.
+                    </p>
+                    <p>
+                        Please keep in mind that your BMI is only a reference to assist in determining your weight goal.
+                        Discuss any concerns you have about your weight, weight loss, or modifications to your food and
+                        exercise routine with a doctor or other health care provider.
+                    </p>
+                </div>
+                <div class="col-sm-6">
+                    <form *ngIf="bmiForm" [formGroup]="bmiForm" (ngSubmit)="onSubmit()">
+                        <div class="form-row align-items-center">
+                            <label for="weight">Weight:</label>
+                            <input class="form-control form-control-sm mt-2" id="weight" type="text"
+                                formControlName="weight" />
+                            <div *ngIf="
+                            bmiForm.controls['weight'].errors?.['required'] &&
+                            (bmiForm.controls['weight'].dirty ||
+                            bmiForm.controls['weight'].touched)
+                          " class="invalid-input" style="color: red">
+                                Please fill the weight field!
+                            </div>
+                            <div *ngIf="!bmiForm.controls['weight'].errors?.['required'] && bmiForm.controls['weight'].invalid &&
+                                            (bmiForm.controls['weight'].dirty ||
+                                                bmiForm.controls['weight'].touched)" class="invalid-input"
+                                style="color: red">
+                                Please use numbers only! Decimal number can be divided usung "."
+                            </div>
+                        </div>
+                        <div class="form-row align-items-center">
+                            <label for="height">Height:</label>
+                            <input class="form-control form-control-sm mt-2" id="height" type="text"
+                                formControlName="height" />
+                            <div *ngIf="
+                            bmiForm.controls['height'].errors?.['required'] &&
+                            (bmiForm.controls['height'].dirty ||
+                            bmiForm.controls['height'].touched)
+                          " class="invalid-input" style="color: red">
+                                Please fill the height field!
+                            </div>
+                            <div *ngIf="!bmiForm.controls['height'].errors?.['required'] && bmiForm.controls['height'].invalid &&
+                                            (bmiForm.controls['height'].dirty ||
+                                                bmiForm.controls['height'].touched)" class="invalid-input"
+                                style="color: red">
+                                Please use numbers only! Decimal number can be divided usung "."
+                            </div>
+                        </div>
+                        <button class="btn btn-primary mt-2" type="submit" [disabled]="!bmiForm.valid">
+                            Calculate
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div *ngIf="bmiCalculated" class="row">
+                <h3 class="secondary-title">
+                    Your BMI is: <strong> {{bmiResult}}</strong>
+                </h3>
+                <h3 class="secondary-title">
+                    Target weight range: <strong> DEMO RANGE </strong>
+                </h3>
+                <h6>BMI RESULT: {{bmiResult}}</h6>
+                <button class="btn btn-primary" (click)="recalculateBMI()">
+                    Recalculate BMI
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+</div>
